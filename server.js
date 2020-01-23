@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
-const postCharge = require('./src/stripe')
+const postCharge = require('./my-app/src/stripe').default
 require('dotenv').config()
 
 const app = express()
@@ -23,10 +23,10 @@ app.use((_, res, next) => {
 })
 app.use(bodyParser.json())
 app.use('/api', router)
-app.use(express.static(path.join(__dirname, './build')))
+app.use(express.static(path.join(__dirname, './my-app/build')))
 
 app.get('*', (_, res) => {
-  res.sendFile(path.resolve(__dirname, './build/index.html'))
+  res.sendFile(path.resolve(__dirname, './my-app/build/index.html'))
 })
 
 app.listen(port, () => console.log(`server running on port ${port}`))

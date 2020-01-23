@@ -2,9 +2,19 @@
   "name": "buyme",
   "version": "1.0.0",
   "description": "Buyme is a e-commerce MERN app for buying clothes.  It uses Stripe for payment",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'my-app/*'\" \"npm run my-app\"",
+    "my-app": "cd my-app && npm run start",
+    "install": "cd my-app && npm install",
+    "build": "cd my-app && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd my-app && npm install && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "nodemon": "^1.18.7"
   },
   "repository": {
     "type": "git",
@@ -14,6 +24,20 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/keshnarana/buyme/issues"
+  },
+  "dependencies": {
+    "axios": "^0.18.1",
+    "bluebird": "^3.5.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "if-env": "^1.0.4",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.27",
+    "mongoose": "^5.7.11"
+  },
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.11.3"
   },
   "homepage": "https://github.com/keshnarana/buyme#readme"
 }
